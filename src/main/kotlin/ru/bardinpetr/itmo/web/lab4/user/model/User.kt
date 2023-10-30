@@ -1,4 +1,4 @@
-package ru.bardinpetr.itmo.web.lab4.models
+package ru.bardinpetr.itmo.web.lab4.user.model
 
 import jakarta.persistence.*
 import java.security.Principal

@@ -1,11 +1,12 @@
-package ru.bardinpetr.itmo.web.lab4.models
+package ru.bardinpetr.itmo.web.lab4.points.model
 
 import jakarta.persistence.Embeddable
 import kotlin.math.abs
 
 @Embeddable
-data class AreaConfig(val r: Double = 1.0) {
-
+data class AreaConfig(
+    val r: Double = 1.0
+) {
 
     companion object {
         var EPSILON = 1e-6

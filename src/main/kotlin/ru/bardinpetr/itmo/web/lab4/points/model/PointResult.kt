@@ -1,6 +1,7 @@
-package ru.bardinpetr.itmo.web.lab4.models
+package ru.bardinpetr.itmo.web.lab4.points.model
 
 import jakarta.persistence.*
+import ru.bardinpetr.itmo.web.lab4.user.model.User
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -21,7 +22,7 @@ data class PointResult(
     val area: AreaConfig,
 
     @Column(nullable = false)
-    val isInside: Boolean,
+    val inside: Boolean,
 
     @Column(nullable = false)
     val executionTime: Duration,

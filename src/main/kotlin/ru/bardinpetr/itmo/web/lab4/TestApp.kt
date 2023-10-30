@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import ru.bardinpetr.itmo.web.lab4.models.AreaConfig
-import ru.bardinpetr.itmo.web.lab4.models.Point
-import ru.bardinpetr.itmo.web.lab4.models.PointResult
-import ru.bardinpetr.itmo.web.lab4.models.User
-import ru.bardinpetr.itmo.web.lab4.repository.PointResultRepository
-import ru.bardinpetr.itmo.web.lab4.repository.UserRepository
+import ru.bardinpetr.itmo.web.lab4.points.model.AreaConfig
+import ru.bardinpetr.itmo.web.lab4.points.model.Point
+import ru.bardinpetr.itmo.web.lab4.points.model.PointResult
+import ru.bardinpetr.itmo.web.lab4.user.model.User
+import ru.bardinpetr.itmo.web.lab4.points.repository.PointResultRepository
+import ru.bardinpetr.itmo.web.lab4.user.repository.UserRepository
 import java.time.Duration
 
 @Component
@@ -33,7 +33,7 @@ class TestApp @Autowired constructor(
                 owner = usera,
                 point = Point(1.1, 1.2),
                 area = AreaConfig(1.0),
-                isInside = true,
+                inside = true,
                 executionTime = Duration.ofSeconds(1)
             )
         ))
@@ -43,15 +43,15 @@ class TestApp @Autowired constructor(
                 owner = usera,
                 point = Point(2.1, 2.2),
                 area = AreaConfig(2.0),
-                isInside = false,
+                inside = false,
                 executionTime = Duration.ofSeconds(2)
             )
         ))
 
-        print(point.getAllByOwner(usera))
-        point.removeAllByOwner(usera)
-        point.removeAllByOwner(userb)
-        print(point.findAll())
+//        print(point.getAllByOwner(usera))
+//        point.removeAllByOwner(usera)
+//        point.removeAllByOwner(userb)
+//        print(point.findAll().toList())
 
 //        point.save()
     }

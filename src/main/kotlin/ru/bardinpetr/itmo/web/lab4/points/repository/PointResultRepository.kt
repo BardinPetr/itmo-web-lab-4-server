@@ -1,9 +1,9 @@
-package ru.bardinpetr.itmo.web.lab4.repository
+package ru.bardinpetr.itmo.web.lab4.points.repository
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.transaction.annotation.Transactional
-import ru.bardinpetr.itmo.web.lab4.models.PointResult
-import ru.bardinpetr.itmo.web.lab4.models.User
+import ru.bardinpetr.itmo.web.lab4.points.model.PointResult
+import ru.bardinpetr.itmo.web.lab4.user.model.User
 
 interface PointResultRepository : CrudRepository<PointResult, Long> {
 

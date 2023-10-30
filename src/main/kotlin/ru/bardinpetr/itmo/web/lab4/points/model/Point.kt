@@ -1,4 +1,4 @@
-package ru.bardinpetr.itmo.web.lab4.models
+package ru.bardinpetr.itmo.web.lab4.points.model
 
 import jakarta.persistence.Embeddable
 
