@@ -21,12 +21,37 @@ spring:
   data:
     rest:
       detection-strategy: annotated
-      base-path: /api2
+      base-path: /api
 
   session:
     store-type: jdbc
     jdbc:
       initialize-schema: always
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8090/realms/lab4
+          jwk-set-uri: http://keycloak:8090/realms/lab4/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak:8090/realms/lab4
+            jwk-set-uri: http://keycloak:8090/realms/lab4/protocol/openid-connect/certs
+        registration:
+          keycloak:
+            client-id: web-lab4-server
+            client-secret: W6yIrCWcD0WIZTlZ0tyeCprIgIjikvfb
+            scope: openid
+
+
+springdoc:
+  api-docs:
+    path: /api/api-docs
+
 app:
   version: 1
+
+server:
+  address: 0.0.0.0

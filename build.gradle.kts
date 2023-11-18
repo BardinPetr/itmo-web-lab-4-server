@@ -43,7 +43,12 @@ dependencies {
     // security
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-
+    implementation("org.springframework.boot:spring-boot-starter-data-ldap")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-authorization-server")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.security:spring-security-oauth2-jose")
+    implementation("org.keycloak.bom:keycloak-adapter-bom:22.0.5")
     // docs
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
