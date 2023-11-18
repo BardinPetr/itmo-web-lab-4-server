@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
+    id("org.openapi.generator") version "7.1.0"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
@@ -71,4 +72,17 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+openApiGenerate {
+    generatorName = "typescript-angular"
+    inputSpec = "$rootDir/openapi.yaml"
+    outputDir = "${layout.buildDirectory.get()}/client"
+    additionalProperties.apply {
+        put("packageName", "lab4")
+    }
+    configOptions.apply {
+//        put("npmName", "itmo-web-lab4")
+//        put("npmRepository", "")
+    }
 }

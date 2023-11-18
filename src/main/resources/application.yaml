@@ -48,7 +48,7 @@ spring:
 
 springdoc:
   api-docs:
-    path: /api/api-docs
+    path: /docs
 
 app:
   version: 1

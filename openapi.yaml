@@ -1,0 +1,209 @@
+openapi: 3.0.1
+info:
+  title: ITMO Lab4 API
+  version: v1.1
+servers:
+- url: http://weblab4.bardinpetr.ru
+paths:
+  /api/point:
+    get:
+      tags:
+      - point-controller
+      operationId: read
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: object
+    post:
+      tags:
+      - point-controller
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PointCheckDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PointCheckResultDTO'
+  /api/point/{id}:
+    get:
+      tags:
+      - point-controller
+      operationId: read_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PointResultDTO'
+  /api/point/t6:
+    get:
+      tags:
+      - point-controller
+      operationId: t6
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: string
+  /api/point/t5:
+    get:
+      tags:
+      - point-controller
+      operationId: t5
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: string
+  /api/point/t4:
+    get:
+      tags:
+      - point-controller
+      operationId: t4
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: string
+  /api/point/t3:
+    get:
+      tags:
+      - point-controller
+      operationId: t3
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: string
+  /api/point/t2:
+    get:
+      tags:
+      - point-controller
+      operationId: t2
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: string
+  /api/point/t1:
+    get:
+      tags:
+      - point-controller
+      operationId: t1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                type: string
+components:
+  schemas:
+    AreaConfig:
+      required:
+      - r
+      type: object
+      properties:
+        r:
+          type: number
+          format: double
+    Point:
+      required:
+      - x
+      - "y"
+      type: object
+      properties:
+        x:
+          type: number
+          format: double
+        "y":
+          type: number
+          format: double
+    PointCheckDTO:
+      required:
+      - area
+      - point
+      type: object
+      properties:
+        point:
+          $ref: '#/components/schemas/Point'
+        area:
+          $ref: '#/components/schemas/AreaConfig'
+    PointCheckResultDTO:
+      required:
+      - id
+      - inside
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        inside:
+          type: boolean
+    PointResultDTO:
+      required:
+      - areaR
+      - executionTimeNs
+      - id
+      - inside
+      - owner
+      - pointX
+      - pointY
+      - timestamp
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        owner:
+          type: string
+        areaR:
+          type: number
+          format: double
+        pointX:
+          type: number
+          format: double
+        pointY:
+          type: number
+          format: double
+        inside:
+          type: boolean
+        executionTimeNs:
+          type: integer
+          format: int64
+        timestamp:
+          type: integer
+          format: int64
+  securitySchemes:
+    bearerAuthentication:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
