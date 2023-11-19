@@ -1,12 +1,17 @@
 package ru.bardinpetr.itmo.web.lab4.points.model
 
 import jakarta.persistence.Embeddable
+import jakarta.validation.constraints.Digits
+import jakarta.validation.constraints.Pattern
+import ru.bardinpetr.itmo.web.lab4.constraints.validator.range.InDoubleRange
 import kotlin.math.atan2
 import kotlin.math.hypot
 
 @Embeddable
 data class Point(
+    @InDoubleRange(rangeBean = "xRange")
     val x: Double = 0.0,
+    @InDoubleRange(rangeBean = "yRange")
     val y: Double = 0.0
 ) {
     fun scale(factor: Double) = Point(x * factor, y * factor)

@@ -1,10 +1,16 @@
 package ru.bardinpetr.itmo.web.lab4.points.model
 
 import jakarta.persistence.Embeddable
+import jakarta.validation.constraints.Digits
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Positive
+import ru.bardinpetr.itmo.web.lab4.constraints.validator.range.InDoubleRange
 import kotlin.math.abs
 
 @Embeddable
 data class AreaConfig(
+    @InDoubleRange(rangeBean = "rRange")
+    @Digits(integer = 6, fraction = 6)
     val r: Double = 1.0
 ) {
 
@@ -13,8 +19,8 @@ data class AreaConfig(
     }
 
     override fun equals(other: Any?): Boolean {
+        if (other == null || javaClass != other.javaClass) return false
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
 
         other as AreaConfig
         return abs(r - other.r) < EPSILON
