@@ -28,6 +28,12 @@ spring:
     jdbc:
       initialize-schema: always
 
+  jackson:
+    deserialization:
+      accept-empty-string-as-null-object: false
+      accept-empty-array-as-null-object: false
+      fail-on-null-for-primitives: true
+
   security:
     oauth2:
       resourceserver:

@@ -1,22 +1,30 @@
 package ru.bardinpetr.itmo.web.lab4.constraints.services
 
-import org.springframework.core.convert.converter.Converter
-import org.springframework.stereotype.Component
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import java.util.function.Predicate
 import java.util.regex.Pattern
 
-@Component
-class DoubleConverterService : Converter<String, Double> {
+class DoubleConverterService(
+    maxPrecision: Int
+) : StdDeserializer<Double>(Double::class.java) {
+    private val isNotDouble: Predicate<String> =
+        Pattern
+            .compile("^-?\\d+(\\.\\d{1,${maxPrecision}})?\$")
+            .asPredicate()
+            .negate()
 
-    override fun convert(source: String): Double? =
-        if (isNotDouble.test(source)) null
+    private fun convert(source: String?): Double? =
+        if (source == null || isNotDouble.test(source)) null
         else source.toDoubleOrNull()
 
-    companion object {
-        val isNotDouble: Predicate<String> =
-            Pattern
-                .compile("^-?\\d+(\\.\\d{1,6})?\$")
-                .asPredicate()
-                .negate()
+    override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): Double {
+        val value = convert(p?.text)
+        if (value == null) {
+            ctxt?.handleWeirdNumberValue(Double::class.java, 0, "Invalid number")
+            return 0.0
+        }
+        return value
     }
 }

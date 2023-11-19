@@ -1,12 +1,9 @@
 package ru.bardinpetr.itmo.web.lab4.points.controller
 
 import io.swagger.v3.oas.annotations.Operation
-import jakarta.validation.Valid
-import org.springframework.http.HttpStatus
 import org.springframework.security.access.annotation.Secured
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.server.ResponseStatusException
 import ru.bardinpetr.itmo.web.lab4.points.dto.PointCheckDTO
 import ru.bardinpetr.itmo.web.lab4.points.dto.PointCheckResultDTO
 import ru.bardinpetr.itmo.web.lab4.points.dto.PointResultDTO
@@ -56,7 +53,7 @@ class PointController(
     @Operation(summary = "Check if specified point in polygon scaled by r parameter")
     fun create(@RequestBody @Validated req: PointCheckDTO, principal: Principal): PointCheckResultDTO {
 //        try {
-            return service.check(req)
+        return service.check(req)
 //        } catch (ex: Exception) {
 //            throw ResponseStatusException(HttpStatus.BAD_REQUEST)
 //        }

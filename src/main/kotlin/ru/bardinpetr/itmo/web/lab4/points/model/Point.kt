@@ -1,8 +1,6 @@
 package ru.bardinpetr.itmo.web.lab4.points.model
 
 import jakarta.persistence.Embeddable
-import jakarta.validation.constraints.Digits
-import jakarta.validation.constraints.Pattern
 import ru.bardinpetr.itmo.web.lab4.constraints.validator.range.InDoubleRange
 import kotlin.math.atan2
 import kotlin.math.hypot
