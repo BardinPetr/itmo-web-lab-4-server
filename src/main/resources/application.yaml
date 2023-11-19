@@ -54,7 +54,22 @@ springdoc:
 
 
 app:
-  version: 1
+  constraints:
+    x-range:
+      min: -4
+      min-inclusive: true
+      max: 4
+      max-inclusive: true
+    y-range:
+      min: -3
+      min-inclusive: false
+      max: 3
+      max-inclusive: false
+    r-range:
+      min: -4
+      min-inclusive: true
+      max: 4
+      max-inclusive: true
 
 server:
   address: 0.0.0.0

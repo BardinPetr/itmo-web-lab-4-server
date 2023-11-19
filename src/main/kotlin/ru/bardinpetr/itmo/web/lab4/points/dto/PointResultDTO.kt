@@ -1,8 +1,6 @@
 package ru.bardinpetr.itmo.web.lab4.points.dto
 
 import ru.bardinpetr.itmo.web.lab4.points.model.PointResult
-import java.time.Duration
-import java.time.LocalDateTime
 import java.time.ZoneId
 
 data class PointResultDTO(

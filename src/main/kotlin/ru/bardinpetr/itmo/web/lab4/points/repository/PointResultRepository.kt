@@ -7,7 +7,7 @@ import ru.bardinpetr.itmo.web.lab4.user.model.User
 
 interface PointResultRepository : CrudRepository<PointResult, Long> {
 
-    fun getAllByOwner(owner: User) : List<PointResult>
+    fun getAllByOwner(owner: User): List<PointResult>
 
     @Transactional
     fun removeAllByOwner(owner: User)

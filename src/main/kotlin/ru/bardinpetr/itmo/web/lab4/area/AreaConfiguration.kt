@@ -2,9 +2,9 @@ package ru.bardinpetr.itmo.web.lab4.area
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.bardinpetr.itmo.web.lab4.area.model.areas.GenericArea
 import ru.bardinpetr.itmo.web.lab4.area.model.areas.AreaCircle
 import ru.bardinpetr.itmo.web.lab4.area.model.areas.AreaPolygon
+import ru.bardinpetr.itmo.web.lab4.area.model.areas.GenericArea
 import ru.bardinpetr.itmo.web.lab4.points.model.Point
 import kotlin.math.PI
 

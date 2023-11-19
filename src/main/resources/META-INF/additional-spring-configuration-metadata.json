@@ -1,0 +1,63 @@
+{
+  "properties": [
+    {
+      "name": "app.constraints.x-range.min",
+      "type": "java.lang.Double",
+      "description": "Range min validation constraint for x."
+    },
+    {
+      "name": "app.constraints.x-range.min-inclusive",
+      "type": "java.lang.Boolean",
+      "description": "Is min constraint for x range inclusive."
+    },
+    {
+      "name": "app.constraints.x-range.max",
+      "type": "java.lang.Double",
+      "description": "Range max validation constraint for x."
+    },
+    {
+      "name": "app.constraints.x-range.max-inclusive",
+      "type": "java.lang.Boolean",
+      "description": "Is max constraint for x range inclusive."
+    },
+    {
+      "name": "app.constraints.y-range.min",
+      "type": "java.lang.Double",
+      "description": "Range min validation constraint for y."
+    },
+    {
+      "name": "app.constraints.y-range.min-inclusive",
+      "type": "java.lang.Boolean",
+      "description": "Is min constraint for y range inclusive."
+    },
+    {
+      "name": "app.constraints.y-range.max",
+      "type": "java.lang.Double",
+      "description": "Range max validation constraint for y."
+    },
+    {
+      "name": "app.constraints.y-range.max-inclusive",
+      "type": "java.lang.Boolean",
+      "description": "Is max constraint for y range inclusive."
+    },
+    {
+      "name": "app.constraints.r-range.min",
+      "type": "java.lang.Double",
+      "description": "Range min validation constraint for r."
+    },
+    {
+      "name": "app.constraints.r-range.min-inclusive",
+      "type": "java.lang.Boolean",
+      "description": "Is min constraint for r range inclusive."
+    },
+    {
+      "name": "app.constraints.r-range.max",
+      "type": "java.lang.Double",
+      "description": "Range max validation constraint for r."
+    },
+    {
+      "name": "app.constraints.r-range.max-inclusive",
+      "type": "java.lang.Boolean",
+      "description": "Is max constraint for r range inclusive."
+    }
+  ] }

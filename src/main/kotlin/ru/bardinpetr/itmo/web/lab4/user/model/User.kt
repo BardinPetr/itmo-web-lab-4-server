@@ -1,7 +1,9 @@
 package ru.bardinpetr.itmo.web.lab4.user.model
 
-import jakarta.persistence.*
-import java.security.Principal
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.util.*
 
 @Entity
