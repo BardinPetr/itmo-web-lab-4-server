@@ -37,7 +37,11 @@ class SecurityConfig(
             }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers(AntPathRequestMatcher("/docs*")).permitAll()
+                    .requestMatchers(
+                        AntPathRequestMatcher("/docs"),
+                        AntPathRequestMatcher("/docs/*"),
+                        AntPathRequestMatcher("/swagger-ui/*")
+                    ).permitAll()
                     .anyRequest().authenticated()
             }
             .build()

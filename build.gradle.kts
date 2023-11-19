@@ -56,7 +56,6 @@ dependencies {
     // misc
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     // tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")

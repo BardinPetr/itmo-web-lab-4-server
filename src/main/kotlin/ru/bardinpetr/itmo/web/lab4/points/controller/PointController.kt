@@ -22,45 +22,36 @@ class PointController(
     val service: PointCheckService,
 ) {
 
-    @GetMapping("/t1")
-    fun t1() = "all"
+//    @GetMapping
+//    @Secured("ROLE_read_points")
+//    fun read(principal: Principal): Iterable<PointResultDTO> =
+//        repo
+//            .getAllByOwner(principal.name)
+//            .map(::PointResultDTO)
 
-    @GetMapping("/t2")
+    @GetMapping("/all")
     @Secured("ROLE_read_points_all")
-    fun t2() = "read_points_all"
-
-    @GetMapping("/t3")
-    @Secured("ROLE_manage_points")
-    fun t3() = "manage_points"
-
-    @GetMapping("/t4")
-    @Secured("ROLE_create_points")
-    fun t4() = "create_points"
-
-    @GetMapping("/t5")
-    @Secured("ROLE_read_points")
-    fun t5() = "read_points"
-
-    @GetMapping("/t6")
-    fun t6(principal: Principal, authentication: Authentication): String {
-        return SecurityContextHolder.getContext().authentication.authorities.toString()
-    }
-
-    @GetMapping
-    fun read(): Iterable<PointResultDTO> =
+    fun readAll(): Iterable<PointResultDTO> =
         repo
             .findAll()
             .map(::PointResultDTO)
 
     @GetMapping("/{id}")
+    @Secured("ROLE_read_points")
     fun read(@PathVariable id: Long): PointResultDTO =
         repo
             .findById(id)
             .map(::PointResultDTO)
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND) }
 
+//    @DeleteMapping
+//    @Secured("ROLE_manage_points")
+//    fun delete(principal: Principal) =
+//        repo.removeAllByOwner(principal.name)
+
     @PostMapping
-    fun create(@RequestBody req: PointCheckDTO): PointCheckResultDTO {
+    @Secured("ROLE_create_points")
+    fun create(@RequestBody req: PointCheckDTO, principal: Principal): PointCheckResultDTO {
         try {
             return service.check(req)
         } catch (ex: Exception) {

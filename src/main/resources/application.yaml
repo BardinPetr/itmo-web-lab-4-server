@@ -49,6 +49,9 @@ spring:
 springdoc:
   api-docs:
     path: /docs
+  swagger-ui:
+    path: /
+
 
 app:
   version: 1
