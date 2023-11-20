@@ -18,9 +18,7 @@ class PointCheckService(
     val userRepository: UserRepository,
     val areaService: AreaService
 ) {
-    fun check(request: PointCheckDTO): PointCheckResultDTO {
-        val user = userRepository.save(User(UUID.randomUUID(), UUID.randomUUID().toString()))
-
+    fun check(request: PointCheckDTO, principal: User): PointCheckResultDTO {
         val point = request.point
         val config = request.area
 
@@ -28,7 +26,7 @@ class PointCheckService(
 
         val saved = repo.save(
             PointResult(
-                owner = user,
+                owner = principal,
                 area = config,
                 point = point,
                 executionTime = Duration.between(request.timestamp, LocalDateTime.now()),
