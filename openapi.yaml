@@ -1,31 +1,37 @@
 openapi: 3.0.1
 info:
   title: ITMO Lab4 API
-  version: v1.1
+  version: 1.4.0
 servers:
 - url: http://weblab4.bardinpetr.ru
+security:
+- bearerAuth: []
 paths:
   /api/point:
     get:
       tags:
       - point-controller
-      operationId: read
+      summary: Get point check results of current user
+      operationId: findOwn
       responses:
         "200":
           description: OK
           content:
             application/hal+json:
               schema:
-                type: object
+                type: array
+                items:
+                  $ref: '#/components/schemas/PointResultDTO'
     post:
       tags:
       - point-controller
+      summary: Check if specified point in polygon scaled by r parameter
       operationId: create
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PointCheckDTO'
+              $ref: '#/components/schemas/PointRequestDTO'
         required: true
       responses:
         "200":
@@ -33,12 +39,21 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/PointCheckResultDTO'
+                $ref: '#/components/schemas/PointResultDTO'
+    delete:
+      tags:
+      - point-controller
+      summary: Remove all user-owned results
+      operationId: removeAll
+      responses:
+        "200":
+          description: OK
   /api/point/{id}:
     get:
       tags:
       - point-controller
-      operationId: read_1
+      summary: Get point result by id
+      operationId: find
       parameters:
       - name: id
         in: path
@@ -53,78 +68,76 @@ paths:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/PointResultDTO'
-  /api/point/t6:
+    delete:
+      tags:
+      - point-controller
+      summary: Remove user-owned result by id
+      operationId: remove
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/point/all:
     get:
       tags:
       - point-controller
-      operationId: t6
+      summary: Get all point check results
+      operationId: findAll
       responses:
         "200":
           description: OK
           content:
             application/hal+json:
               schema:
-                type: string
-  /api/point/t5:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PointResultDTO'
+  /api/constraints/{type}:
     get:
       tags:
-      - point-controller
-      operationId: t5
+      - constraints-controller
+      summary: Get input variables range constraints
+      operationId: getConstraint
+      parameters:
+      - name: type
+        in: path
+        description: "Name of requested parameter range: point X/Y or area scale R"
+        required: true
+        schema:
+          type: string
+          enum:
+          - x
+          - "y"
+          - r
       responses:
         "200":
           description: OK
           content:
             application/hal+json:
               schema:
-                type: string
-  /api/point/t4:
+                $ref: '#/components/schemas/DoubleRange'
+  /api/area:
     get:
       tags:
-      - point-controller
-      operationId: t4
+      - area-controller
+      summary: Get checked polygon geometry description
+      operationId: area
       responses:
         "200":
           description: OK
           content:
             application/hal+json:
               schema:
-                type: string
-  /api/point/t3:
-    get:
-      tags:
-      - point-controller
-      operationId: t3
-      responses:
-        "200":
-          description: OK
-          content:
-            application/hal+json:
-              schema:
-                type: string
-  /api/point/t2:
-    get:
-      tags:
-      - point-controller
-      operationId: t2
-      responses:
-        "200":
-          description: OK
-          content:
-            application/hal+json:
-              schema:
-                type: string
-  /api/point/t1:
-    get:
-      tags:
-      - point-controller
-      operationId: t1
-      responses:
-        "200":
-          description: OK
-          content:
-            application/hal+json:
-              schema:
-                type: string
+                oneOf:
+                - $ref: '#/components/schemas/AreaCircle'
+                - $ref: '#/components/schemas/AreaPolygon'
+                - $ref: '#/components/schemas/GenericArea'
 components:
   schemas:
     AreaConfig:
@@ -147,7 +160,7 @@ components:
         "y":
           type: number
           format: double
-    PointCheckDTO:
+    PointRequestDTO:
       required:
       - area
       - point
@@ -157,17 +170,6 @@ components:
           $ref: '#/components/schemas/Point'
         area:
           $ref: '#/components/schemas/AreaConfig'
-    PointCheckResultDTO:
-      required:
-      - id
-      - inside
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        inside:
-          type: boolean
     PointResultDTO:
       required:
       - areaR
@@ -202,8 +204,86 @@ components:
         timestamp:
           type: integer
           format: int64
+    DoubleRange:
+      required:
+      - max
+      - maxInclusive
+      - min
+      - minInclusive
+      type: object
+      properties:
+        min:
+          type: number
+          format: double
+        minInclusive:
+          type: boolean
+        max:
+          type: number
+          format: double
+        maxInclusive:
+          type: boolean
+    Area:
+      title: Area
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+      discriminator:
+        propertyName: type
+        mapping:
+          GenericArea: '#/components/schemas/GenericArea'
+          AreaPolygon: '#/components/schemas/AreaPolygon'
+          AreaCircle: '#/components/schemas/AreaCircle'
+    AreaCircle:
+      required:
+      - angleEndRadians
+      - angleStartRadians
+      - center
+      - radius
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Area'
+      - type: object
+        properties:
+          center:
+            $ref: '#/components/schemas/Point'
+          radius:
+            type: number
+            format: double
+          angleStartRadians:
+            type: number
+            format: double
+          angleEndRadians:
+            type: number
+            format: double
+    AreaPolygon:
+      required:
+      - points
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Area'
+      - type: object
+        properties:
+          points:
+            type: array
+            items:
+              $ref: '#/components/schemas/Point'
+    GenericArea:
+      required:
+      - subareas
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Area'
+      - type: object
+        properties:
+          subareas:
+            type: array
+            items:
+              $ref: '#/components/schemas/Area'
   securitySchemes:
-    bearerAuthentication:
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT

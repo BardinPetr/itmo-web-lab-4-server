@@ -78,10 +78,10 @@ openApiGenerate {
     inputSpec = "$rootDir/openapi.yaml"
     outputDir = "${layout.buildDirectory.get()}/client"
     additionalProperties.apply {
-        put("packageName", "lab4")
+        put("packageName", "lab4api")
     }
     configOptions.apply {
-//        put("npmName", "itmo-web-lab4")
-//        put("npmRepository", "")
+        put("npmName", "itmo-web-lab4")
+//        put("npmRepository", "https://github.com/BardinPetr/itmo-web-lab-4-clientlib")
     }
 }

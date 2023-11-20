@@ -12,4 +12,6 @@ interface PointResultRepository : CrudRepository<PointResult, Long> {
     @Transactional
     fun removeAllByOwner(owner: User)
 
+    @Transactional
+    fun removeByOwnerAndId(owner: User, id: Long)
 }

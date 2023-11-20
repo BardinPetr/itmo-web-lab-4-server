@@ -5,8 +5,7 @@ import ru.bardinpetr.itmo.web.lab4.points.model.AreaConfig
 import ru.bardinpetr.itmo.web.lab4.points.model.Point
 import java.time.LocalDateTime
 
-data class PointCheckDTO(
+data class PointRequestDTO(
     @field:Valid val point: Point,
     @field:Valid val area: AreaConfig,
-    val timestamp: LocalDateTime = LocalDateTime.now()
 )
