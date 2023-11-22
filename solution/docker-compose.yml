@@ -42,7 +42,7 @@ services:
       KEYCLOAK_CREATE_ADMIN_USER: true
       KEYCLOAK_ADMIN_USER: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KEYCLOAK_EXTRA_ARGS: --import-realm --proxy edge --hostname-url=http://idp.bardinpetr.ru
+      KEYCLOAK_EXTRA_ARGS: --import-realm --proxy edge --hostname-url=https://idp.bardinpetr.ru --hostname-admin-url=https://idp.bardinpetr.ru
 
   nginx:
     image: nginx
