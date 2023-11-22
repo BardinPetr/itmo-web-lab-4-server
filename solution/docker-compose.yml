@@ -7,8 +7,8 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: http://idp.weblab4.bardinpetr.ru/realms/lab4
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: http://idp.weblab4.bardinpetr.ru/realms/lab4/protocol/openid-connect/certs
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: http://idp.bardinpetr.ru/realms/lab4
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: http://idp.bardinpetr.ru/realms/lab4/protocol/openid-connect/certs
 
   frontend:
     image: bardinpetr/itmo_web_lab_4_client:latest
@@ -42,7 +42,7 @@ services:
       KEYCLOAK_CREATE_ADMIN_USER: true
       KEYCLOAK_ADMIN_USER: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KEYCLOAK_EXTRA_ARGS: --import-realm --proxy edge
+      KEYCLOAK_EXTRA_ARGS: --import-realm --proxy edge --hostname-url=http://idp.bardinpetr.ru
 
   nginx:
     image: nginx
