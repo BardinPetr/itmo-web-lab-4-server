@@ -36,3 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 l3/
+
+solution/postgres_data/

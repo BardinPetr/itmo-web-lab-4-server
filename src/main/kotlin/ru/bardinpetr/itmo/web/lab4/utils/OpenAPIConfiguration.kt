@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 @OpenAPIDefinition(
     info = Info(
         title = "ITMO Lab4 API",
-        version = "1.4.0"
+        version = "1.5.0"
     ),
     servers = [Server(
         url = "http://weblab4.bardinpetr.ru"

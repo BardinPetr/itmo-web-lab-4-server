@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "3.1.5"
@@ -82,6 +83,10 @@ openApiGenerate {
     }
     configOptions.apply {
         put("npmName", "itmo-web-lab4")
-//        put("npmRepository", "https://github.com/BardinPetr/itmo-web-lab-4-clientlib")
+        put("npmRepository", "https://github.com/BardinPetr/itmo-web-lab-4-server")
     }
+}
+
+tasks.getByName<BootJar>("bootJar") {
+    this.archiveFileName.set("${archiveBaseName.get()}.${archiveExtension.get()}")
 }

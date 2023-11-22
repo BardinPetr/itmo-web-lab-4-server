@@ -1,0 +1,53 @@
+services:
+  backend:
+    image: bardinpetr/itmo_web_lab_4:latest
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: http://idp.weblab4.bardinpetr.ru/realms/lab4
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: http://idp.weblab4.bardinpetr.ru/realms/lab4/protocol/openid-connect/certs
+
+  frontend:
+    image: bardinpetr/itmo_web_lab_4_client:latest
+    restart: always
+
+  pg:
+    image: postgres:16
+    restart: always
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+  idp:
+    image: bitnami/keycloak:latest
+    restart: always
+    volumes:
+      - ./keycloak:/docker-entrypoint-initdb.d
+      - ./keycloak:/opt/bitnami/keycloak/data/import
+    environment:
+      KEYCLOAK_DATABASE_VENDOR: postgresql
+      KEYCLOAK_DATABASE_HOST: pg
+      KEYCLOAK_DATABASE_NAME: postgres
+      KEYCLOAK_DATABASE_PORT: 5432
+      KEYCLOAK_DATABASE_USER: postgres
+      KEYCLOAK_DATABASE_PASSWORD: password
+      KEYCLOAK_HTTP_PORT: 8090
+      KEYCLOAK_CREATE_ADMIN_USER: true
+      KEYCLOAK_ADMIN_USER: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_EXTRA_ARGS: --import-realm --proxy edge
+
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
