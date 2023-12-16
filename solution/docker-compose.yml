@@ -7,8 +7,8 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: http://idp:8090/realms/lab4
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: http://idp:8090/realms/lab4/protocol/openid-connect/certs
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: https://idp.bardinpetr.ru/realms/lab4
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: https://idp.bardinpetr.ru  /realms/lab4/protocol/openid-connect/certs
 
   frontend:
     image: bardinpetr/itmo_web_lab_4_client:latest

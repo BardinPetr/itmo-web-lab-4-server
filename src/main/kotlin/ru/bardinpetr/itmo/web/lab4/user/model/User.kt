@@ -12,6 +12,6 @@ data class User(
     @Id
     var id: UUID? = null,
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     val login: String,
 )
